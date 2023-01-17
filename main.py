@@ -11,8 +11,7 @@ def find_files(filename, search_path):
                result.append(os.path.join(root, fileNames))
    return result
 
-# Step 1
-# Create folders by month, by year in desired folder destination
+# Step 0 - Create folders by month, by year in desired folder destination
 
 # destination = "E:\\Phone Media Backups\\2023\\2023-"
 # destination = "Test Files\\2023-"
@@ -28,7 +27,9 @@ def find_files(filename, search_path):
 #     except FileNotFoundError:
 #         print(destination +" was not found")
 
-# Search for files named
+# Step 2 - Search for files named
 # found_files = find_files("202203", "E:\\Phone Media Backups\\2022")
 found_files = find_files("help", "Test Files")
 print(found_files)
+
+# Step 3 - Copy/Move found files into folders created earlier
