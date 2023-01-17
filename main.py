@@ -1,5 +1,4 @@
 import os
-import random
 def find_files(filename, search_path):
    result = []
 
@@ -10,12 +9,15 @@ def find_files(filename, search_path):
                result.append(os.path.join(root, fileNames))
    return result
 
+# Getting user inputs
 year = input("Input the year\n")
 startMonth = input("Input the start month\n")
 endMonth = input ("Input the end month\n")
 
-originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
-destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
+# originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
+originDirectory = "E:\\Phone Media Backups\\To Be Sorted\\"
+# destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
+destinationDirectory = "E:\\Phone Media Backups\\"
 yearFolderDestination = destinationDirectory + str(year) + "\\"
 
 # Make destination folders by month if they do not exist.
@@ -25,19 +27,24 @@ for i in range(1,13):
 
     try:
         if os.path.exists(yearMonthDestinationFolder):
-            print("This folder already exists")
+            print(yearMonth + " folder already exists")
         else:
             os.makedirs(yearMonthDestinationFolder)
-            print("Folder has been created")
+            print(str(yearMonth) + " folder has been created")
 
         # Find associated photos/videos/files taken in during 'yearMonth'
-        found_files = find_files(str(yearMonth), "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From")
-
-        #Move/Copy the found files into the destination directory
-        for file in found_files:
-            os.rename(file, yearMonthDestinationFolder + "\\" + os.path.basename(file))
+        found_files = find_files(str(yearMonth), originDirectory)
+        if len(found_files) == 0:
+            print("No files found for " + str(yearMonth))
+        else:
+            # Move/Copy the found files into the destination directory
+            for file in found_files:
+                os.rename(file, yearMonthDestinationFolder + "\\" + os.path.basename(file))
+            print(str(yearMonth) + " has been organised.")
 
     except FileNotFoundError:
         print(yearFolderDestination + " was not found")
+    except FileExistsError:
+        print("File already exists, moving on")
 
 # for month in range(startMonth, endMonth)
