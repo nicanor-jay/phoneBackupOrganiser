@@ -21,18 +21,21 @@ yearFolderDestination = destinationDirectory + str(year) + "\\"
 # Make destination folders by month if they do not exist.
 for i in range(1,13):
     yearMonth = str(year) + "{:02d}".format(i)
-    print(yearMonth)
+    yearMonthDestinationFolder = yearFolderDestination + year + "-"+ "{:02d}".format(i)
+
     try:
-        if os.path.exists(yearFolderDestination + year + "-"+ "{:02d}".format(i)):
+        if os.path.exists(yearMonthDestinationFolder):
             print("This folder already exists")
         else:
-            os.makedirs(yearFolderDestination + year + "-"+ "{:02d}".format(i))
+            os.makedirs(yearMonthDestinationFolder)
             print("Folder has been created")
 
         # Find associated photos/videos/files taken in during 'yearMonth'
         found_files = find_files(str(yearMonth), "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From")
 
         #Move/Copy the found files into the destination directory
+        for file in found_files:
+            os.rename(file, yearMonthDestinationFolder + "\\" + os.path.basename(file))
 
     except FileNotFoundError:
         print(yearFolderDestination + " was not found")
