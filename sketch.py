@@ -1,37 +1,14 @@
-import os
-import random
+import tkinter as tk
 
-#find_files definition
-def find_files(filename, search_path):
-   result = []
+root = tk.Tk()
 
-# Walking top-down from the root
-   for root, dir, file in os.walk(search_path):
-      for fileNames in file:
-         if filename in fileNames:
-               result.append(os.path.join(root, fileNames))
-   return result
+root.geometry("500x500")
+root.title("My First GUI")
 
-# Setup Step 0 - Create folders by month, by year in desired folder destination
-# destination = "E:\\Phone Media Backups\\2023\\2023-"
-destination = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\2022-"
+label = tk.Label(root, text="Hello World", font=('Arial',18))
+label.pack(padx=20, pady=20)
 
-for i in range(1,13):
-    filename = destination + "{:02d}".format(i)
-    try:
-        if os.path.exists(filename):
-            print("There is already a file there")
-        else:
-            os.makedirs(filename)
-            print("File has been created")
-    except FileNotFoundError:
-        print(destination +" was not found")
+textbox = tk.Text(root, height=3, font=('Arial', 16))
+textbox.pack()
 
-# Step 1 - Search for files named
-# found_files = find_files("202203", "E:\\Phone Media Backups\\2022")
-found_files = find_files("202201", "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From")
-print(found_files)
-
-# Step 3 - Copy/Move found files into folders created earlier
-# for file in found_files:
-#     os.rename(file, destination)
+root.mainloop()

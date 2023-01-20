@@ -14,10 +14,8 @@ year = input("Input the year\n")
 startMonth = input("Input the start month\n")
 endMonth = input ("Input the end month\n")
 
-# originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
-originDirectory = "E:\\Phone Media Backups\\To Be Sorted\\"
-# destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
-destinationDirectory = "E:\\Phone Media Backups\\"
+originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
+destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
 yearFolderDestination = destinationDirectory + str(year) + "\\"
 
 # Make destination folders by month if they do not exist.
