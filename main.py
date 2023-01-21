@@ -1,7 +1,6 @@
 import os
 def find_files(filename, search_path):
    result = []
-
 # Walking top-down from the root
    for root, dir, file in os.walk(search_path):
       for fileNames in file:
@@ -9,19 +8,25 @@ def find_files(filename, search_path):
                result.append(os.path.join(root, fileNames))
    return result
 
-# Getting user inputs
-year = input("Input the year\n")
-startMonth = input("Input the start month\n")
-endMonth = input ("Input the end month\n")
+while(True):
+    try:
+        year = int(input("Input the year\n"))
+        startMonth = int(input("Input the start month (1-12)\n"))
+        endMonth = int(input("Input the end month (1-12)\n"))
+    except ValueError:
+        print("Sorry, I didn't understand that.")
+        continue
+    else:
+        break
 
 originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
 destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
 yearFolderDestination = destinationDirectory + str(year) + "\\"
 
 # Make destination folders by month if they do not exist.
-for i in range(1,13):
+for i in range(startMonth,endMonth + 1):
     yearMonth = str(year) + "{:02d}".format(i)
-    yearMonthDestinationFolder = yearFolderDestination + year + "-"+ "{:02d}".format(i)
+    yearMonthDestinationFolder = yearFolderDestination + str(year) + "-"+ "{:02d}".format(i)
 
     try:
         if os.path.exists(yearMonthDestinationFolder):
@@ -44,5 +49,3 @@ for i in range(1,13):
         print(yearFolderDestination + " was not found")
     except FileExistsError:
         print("File already exists, moving on")
-
-# for month in range(startMonth, endMonth)
