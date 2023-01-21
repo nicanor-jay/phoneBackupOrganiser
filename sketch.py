@@ -30,7 +30,8 @@ class myGUI:
         self.root.mainloop()
 
     def test_function(self):
-        print("Hi")
+        print(self.startMonth.get())
+        print(self.endMonth.get())
         pass
 
 myGUI()
