@@ -19,9 +19,9 @@ while(True):
     else:
         break
 
-originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
-destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
-yearFolderDestination = destinationDirectory + str(year) + "\\"
+originDirectory = "C:/Users/Nicanor/Desktop/TestFiles/From/"
+destinationDirectory = "C:/Users/Nicanor/Desktop/TestFiles/To/"
+yearFolderDestination = destinationDirectory + str(year) + "/"
 
 # Make destination folders by month if they do not exist.
 for i in range(startMonth,endMonth + 1):
@@ -42,7 +42,7 @@ for i in range(startMonth,endMonth + 1):
         else:
             # Move/Copy the found files into the destination directory
             for file in found_files:
-                os.rename(file, yearMonthDestinationFolder + "\\" + os.path.basename(file))
+                os.rename(file, yearMonthDestinationFolder + "/" + os.path.basename(file))
             print(str(yearMonth) + " has been organised.")
 
     except FileNotFoundError:
