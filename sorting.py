@@ -8,8 +8,19 @@ def find_files(filename, search_path):
          if filename in fileNames:
                result.append(os.path.join(root, fileNames))
    return result
+
+def count_files(search_path):
+    numOfFiles = 0
+    # Walking top-down from the root
+    for root, dir, file in os.walk(search_path):
+        for fileNames in file:
+            numOfFiles+=1
+    return numOfFiles
+
+
 def sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth):
     yearFolderDestination = toDirectory + "/" + str(year)
+    numPhotosSorted = 0
 
     for i in range(startMonth, endMonth + 1):
         yearMonth = str(year) + "{:02d}".format(i)
@@ -30,10 +41,14 @@ def sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth):
                 # Move/Copy the found files into the to directory
                 for file in found_files:
                     os.rename(file, yearMonthDestinationFolder + "/" + os.path.basename(file))
+                    numPhotosSorted += 1
                 print(str(yearMonth) + " has been organised.")
+
 
         except FileNotFoundError:
             print(yearFolderDestination + " was not found")
         except FileExistsError:
             print("moving on")
+
+    return count_files(fromDirectory), numPhotosSorted
 

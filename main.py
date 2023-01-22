@@ -43,7 +43,6 @@ class myGUI:
         self.startMonthEntry = tk.StringVar(self.root)
         self.startMonthEntryDropDown = tk.OptionMenu(self.root,self.startMonthEntry, *MONTHOPTIONS)
         self.startMonthEntryDropDown.grid(row=4, column=1)
-
         self.yearLabel = tk.Label(self.root, text="Enter End Month")
         self.yearLabel.grid(row=5, column=0)
         self.endMonthEntry = tk.StringVar(self.root)
@@ -71,9 +70,13 @@ class myGUI:
             startMonth = int(self.startMonthEntry.get())
             endMonth = int(self.endMonthEntry.get())
 
-            sorting.sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth)
+            numFilesLeft, numFilesSorted = sorting.sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth)
+            successMessage = str(numFilesSorted) + " files successfully organised."
 
-            tk.messagebox.showinfo(title="Sucess", message="Files successfully organised!")
+            if (numFilesLeft > 0):
+                successMessage += str(numFilesLeft) + " remaining and needs your attention."
+
+            tk.messagebox.showinfo(title="Success", message=successMessage)
 
         except ValueError:
             tk.messagebox.showinfo(title="Warning", message="Sorry, please correct the inputs & try again.")
