@@ -1,4 +1,4 @@
-import tkinter as tk
+import tkinter as tk, sorting
 from tkinter import filedialog
 
 MONTHOPTIONS = [
@@ -69,15 +69,10 @@ class myGUI:
             toDirectory = self.toFolderPath.get()
             year = int(self.yearEntry.get('1.0', tk.END))
             startMonth = int(self.startMonthEntry.get())
-            yearMonth = int(self.endMonthEntry.get())
-            print(fromDirectory)
-            print(toDirectory)
-            print(year)
-            print(startMonth)
-            print(yearMonth)
+            endMonth = int(self.endMonthEntry.get())
+
+            sorting.sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth)
         except ValueError:
             tk.messagebox.showinfo(title="Warning", message="Sorry, please correct the inputs & try again.")
-    def sortFiles(self):
-        pass
 
 myGUI()

@@ -1,4 +1,4 @@
-import os
+import os, sorting
 def find_files(filename, search_path):
    result = []
 # Walking top-down from the root
