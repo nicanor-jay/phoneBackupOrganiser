@@ -16,9 +16,9 @@ class myGUI:
         self.titleLabel.grid(row=0, column=1)
 
         self.fromFolderPath = tk.StringVar()
-        self.fromFolderLabel = tk.Label(self.root, text = "Enter 'From' Directory")
+        self.fromFolderLabel = tk.Label(self.root, text="Enter 'From' Directory")
         self.fromFolderLabel.grid(row=1, column=0)
-        self.fromFolderEntry = tk.Entry(self.root, textvariable = self.fromFolderPath)
+        self.fromFolderEntry = tk.Entry(self.root, width=40, textvariable=self.fromFolderPath)
         self.fromFolderEntry.grid(row=1, column=1)
         self.fromDirectoryButton = tk.Button(self.root, text="Browse Files", font=('Arial', 10),
                                              command=self.getFromDirectory)
@@ -27,27 +27,31 @@ class myGUI:
         self.toFolderPath = tk.StringVar()
         self.toFolderLabel = tk.Label(self.root, text = "Enter 'to' Directory")
         self.toFolderLabel.grid(row=2, column=0)
-        self.toFolderEntry = tk.Entry(self.root, textvariable = self.toFolderPath)
+        self.toFolderEntry = tk.Entry(self.root, width=40, textvariable=self.toFolderPath)
         self.toFolderEntry.grid(row=2, column=1)
         self.toDirectoryButton = tk.Button(self.root, text="Browse Files", font=('Arial', 10),
                                              command=self.getToDirectory)
         self.toDirectoryButton.grid(row=2, column=2)
 
-        # self.yearEntry = tk.Text(self.root,  height=1, width=5, font=('Arial', 10))
-        # self.yearEntry.pack()
-        #
-        # self.startMonthEntry = tk.StringVar(self.root)
-        # self.startMonthEntry.set("Select the start month")
-        # self.startMonthEntryDropDown = tk.OptionMenu(self.root,self.startMonthEntry, *MONTHOPTIONS)
-        # self.startMonthEntryDropDown.pack()
-        #
-        # self.endMonthEntry = tk.StringVar(self.root)
-        # self.endMonthEntry.set("Select the end month")
-        # self.endMonthEntryDropDown = tk.OptionMenu(self.root,self.endMonthEntry, *MONTHOPTIONS)
-        # self.endMonthEntryDropDown.pack()
-        #
-        # self.sortButton = tk.Button(self.root, text="Sort", font =('Arial', 10), command=self.validateInputs)
-        # self.sortButton.pack(padx=10,pady=10)
+        self.yearLabel = tk.Label(self.root, text="Enter Desired Year")
+        self.yearLabel.grid(row=3, column=0)
+        self.yearEntry = tk.Text(self.root,  height=1, width=17, font=('Arial', 10))
+        self.yearEntry.grid(row=3, column=1)
+
+        self.yearLabel = tk.Label(self.root, text="Enter Start Month")
+        self.yearLabel.grid(row=4, column=0)
+        self.startMonthEntry = tk.StringVar(self.root)
+        self.startMonthEntryDropDown = tk.OptionMenu(self.root,self.startMonthEntry, *MONTHOPTIONS)
+        self.startMonthEntryDropDown.grid(row=4, column=1)
+
+        self.yearLabel = tk.Label(self.root, text="Enter End Month")
+        self.yearLabel.grid(row=5, column=0)
+        self.endMonthEntry = tk.StringVar(self.root)
+        self.endMonthEntryDropDown = tk.OptionMenu(self.root,self.endMonthEntry, *MONTHOPTIONS)
+        self.endMonthEntryDropDown.grid(row=5, column=1)
+
+        self.sortButton = tk.Button(self.root, text="Move and Organise Files", font =('Arial', 10), command=self.validateInputs)
+        self.sortButton.grid(row=6, column=1)
 
         self.root.mainloop()
 
@@ -61,11 +65,16 @@ class myGUI:
 
     def validateInputs(self):
         try:
-            fromDirectory = self.fromDirectoryLabel.get('1.0', tk.END)
+            fromDirectory = self.fromFolderPath.get()
+            toDirectory = self.toFolderPath.get()
             year = int(self.yearEntry.get('1.0', tk.END))
             startMonth = int(self.startMonthEntry.get())
             yearMonth = int(self.endMonthEntry.get())
             print(fromDirectory)
+            print(toDirectory)
+            print(year)
+            print(startMonth)
+            print(yearMonth)
         except ValueError:
             tk.messagebox.showinfo(title="Warning", message="Sorry, please correct the inputs & try again.")
     def sortFiles(self):
