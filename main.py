@@ -1,40 +1,36 @@
-import os
-def find_files(filename, search_path):
-   result = []
-# Walking top-down from the root
-   for root, dir, file in os.walk(search_path):
-      for fileNames in file:
-         if filename in fileNames:
-               result.append(os.path.join(root, fileNames))
-   return result
+import tkinter as tk, sorting
+from tkinter import filedialog
 
-while(True):
-    try:
-        year = int(input("Input the year\n"))
-        startMonth = int(input("Input the start month (1-12)\n"))
-        endMonth = int(input("Input the end month (1-12)\n"))
-    except ValueError:
-        print("Sorry, I didn't understand that.")
-        continue
-    else:
-        break
+MONTHOPTIONS = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+]
+class myGUI:
 
+<<<<<<< HEAD
+    def __init__(self):
+=======
 originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
 destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
 yearFolderDestination = destinationDirectory + str(year) + "\\"
+>>>>>>> main
 
-# Make destination folders by month if they do not exist.
-for i in range(startMonth,endMonth + 1):
-    yearMonth = str(year) + "{:02d}".format(i)
-    yearMonthDestinationFolder = yearFolderDestination + str(year) + "-"+ "{:02d}".format(i)
+        self.root = tk.Tk()
+        self.root.title("File Organiser")
+        self.root.geometry('500x500')
 
-    try:
-        if os.path.exists(yearMonthDestinationFolder):
-            print(yearMonth + " folder already exists")
-        else:
-            os.makedirs(yearMonthDestinationFolder)
-            print(str(yearMonth) + " folder has been created")
+        self.titleLabel = tk.Label(self.root, text="Photo & Video Organiser", font =('Arial', 17))
+        self.titleLabel.grid(row=0, column=1)
 
+<<<<<<< HEAD
+        self.fromFolderPath = tk.StringVar()
+        self.fromFolderLabel = tk.Label(self.root, text="Enter 'From' Directory")
+        self.fromFolderLabel.grid(row=1, column=0)
+        self.fromFolderEntry = tk.Entry(self.root, width=40, textvariable=self.fromFolderPath)
+        self.fromFolderEntry.grid(row=1, column=1)
+        self.fromDirectoryButton = tk.Button(self.root, text="Browse Files", font=('Arial', 10),
+                                             command=self.getFromDirectory)
+        self.fromDirectoryButton.grid(row=1, column=2)
+=======
         # Find associated photos/videos/files taken in during 'yearMonth'
         found_files = find_files(str(yearMonth), originDirectory)
         if len(found_files) == 0:
@@ -44,8 +40,60 @@ for i in range(startMonth,endMonth + 1):
             for file in found_files:
                 os.rename(file, yearMonthDestinationFolder + "\\" + os.path.basename(file))
             print(str(yearMonth) + " has been organised.")
+>>>>>>> main
 
-    except FileNotFoundError:
-        print(yearFolderDestination + " was not found")
-    except FileExistsError:
-        print("File already exists, moving on")
+        self.toFolderPath = tk.StringVar()
+        self.toFolderLabel = tk.Label(self.root, text = "Enter 'to' Directory")
+        self.toFolderLabel.grid(row=2, column=0)
+        self.toFolderEntry = tk.Entry(self.root, width=40, textvariable=self.toFolderPath)
+        self.toFolderEntry.grid(row=2, column=1)
+        self.toDirectoryButton = tk.Button(self.root, text="Browse Files", font=('Arial', 10),
+                                             command=self.getToDirectory)
+        self.toDirectoryButton.grid(row=2, column=2)
+
+        self.yearLabel = tk.Label(self.root, text="Enter Desired Year")
+        self.yearLabel.grid(row=3, column=0)
+        self.yearEntry = tk.Text(self.root,  height=1, width=17, font=('Arial', 10))
+        self.yearEntry.grid(row=3, column=1)
+
+        self.yearLabel = tk.Label(self.root, text="Enter Start Month")
+        self.yearLabel.grid(row=4, column=0)
+        self.startMonthEntry = tk.StringVar(self.root)
+        self.startMonthEntryDropDown = tk.OptionMenu(self.root,self.startMonthEntry, *MONTHOPTIONS)
+        self.startMonthEntryDropDown.grid(row=4, column=1)
+
+        self.yearLabel = tk.Label(self.root, text="Enter End Month")
+        self.yearLabel.grid(row=5, column=0)
+        self.endMonthEntry = tk.StringVar(self.root)
+        self.endMonthEntryDropDown = tk.OptionMenu(self.root,self.endMonthEntry, *MONTHOPTIONS)
+        self.endMonthEntryDropDown.grid(row=5, column=1)
+
+        self.sortButton = tk.Button(self.root, text="Move and Organise Files", font =('Arial', 10), command=self.validateInputs)
+        self.sortButton.grid(row=6, column=1)
+
+        self.root.mainloop()
+
+
+    def getFromDirectory(self):
+        self.myFromDirectory = tk.filedialog.askdirectory()
+        self.fromFolderPath.set(self.myFromDirectory)
+    def getToDirectory(self):
+        self.myToDirectory = tk.filedialog.askdirectory()
+        self.toFolderPath.set(self.myToDirectory)
+
+    def validateInputs(self):
+        try:
+            fromDirectory = self.fromFolderPath.get()
+            toDirectory = self.toFolderPath.get()
+            year = int(self.yearEntry.get('1.0', tk.END))
+            startMonth = int(self.startMonthEntry.get())
+            endMonth = int(self.endMonthEntry.get())
+
+            sorting.sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth)
+
+            tk.messagebox.showinfo(title="Sucess", message="Files successfully organised!")
+
+        except ValueError:
+            tk.messagebox.showinfo(title="Warning", message="Sorry, please correct the inputs & try again.")
+
+myGUI()
