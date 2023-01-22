@@ -2,6 +2,7 @@
 Streamlining the local organisation of photos, videos, & files imported from your phone.
 
 This python script moves and organises the mess of files from any folder, into an organised directory sorted by years and months
+
 ![image](https://user-images.githubusercontent.com/95185431/213944376-4ebe2676-a757-4e55-944f-fd3b747063a0.png)
 
 How to:
