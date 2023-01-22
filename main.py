@@ -6,13 +6,7 @@ MONTHOPTIONS = [
 ]
 class myGUI:
 
-<<<<<<< HEAD
     def __init__(self):
-=======
-originDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\From\\"
-destinationDirectory = "C:\\Users\\Nicanor\\Desktop\\TestFiles\\To\\"
-yearFolderDestination = destinationDirectory + str(year) + "\\"
->>>>>>> main
 
         self.root = tk.Tk()
         self.root.title("File Organiser")
@@ -21,7 +15,6 @@ yearFolderDestination = destinationDirectory + str(year) + "\\"
         self.titleLabel = tk.Label(self.root, text="Photo & Video Organiser", font =('Arial', 17))
         self.titleLabel.grid(row=0, column=1)
 
-<<<<<<< HEAD
         self.fromFolderPath = tk.StringVar()
         self.fromFolderLabel = tk.Label(self.root, text="Enter 'From' Directory")
         self.fromFolderLabel.grid(row=1, column=0)
@@ -30,17 +23,6 @@ yearFolderDestination = destinationDirectory + str(year) + "\\"
         self.fromDirectoryButton = tk.Button(self.root, text="Browse Files", font=('Arial', 10),
                                              command=self.getFromDirectory)
         self.fromDirectoryButton.grid(row=1, column=2)
-=======
-        # Find associated photos/videos/files taken in during 'yearMonth'
-        found_files = find_files(str(yearMonth), originDirectory)
-        if len(found_files) == 0:
-            print("No files found for " + str(yearMonth))
-        else:
-            # Move/Copy the found files into the destination directory
-            for file in found_files:
-                os.rename(file, yearMonthDestinationFolder + "\\" + os.path.basename(file))
-            print(str(yearMonth) + " has been organised.")
->>>>>>> main
 
         self.toFolderPath = tk.StringVar()
         self.toFolderLabel = tk.Label(self.root, text = "Enter 'to' Directory")
