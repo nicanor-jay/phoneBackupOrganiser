@@ -122,13 +122,21 @@ class myGUI:
             if (startMonth > endMonth):
                 raise ValueError
 
-            numFilesLeft, numFilesSorted = sorting.sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth)
-            successMessage = str(numFilesSorted) + " files successfully organised."
+            numFilesLeft, numFilesSorted, numPreexistingFiles = sorting.sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth)
+            postProcessingMessage = ""
+
+            if (numFilesSorted > 0):
+                postProcessingMessage += str(numFilesSorted) + " files successfully organised."
+            else:
+                postProcessingMessage = "No files were organised."
+
+            if (numPreexistingFiles > 0):
+                postProcessingMessage += "\n " + str(numPreexistingFiles) + " are already within the destination folder."
 
             if (numFilesLeft > 0):
-                successMessage += " " + str(numFilesLeft) + " remaining and needs your attention."
+                postProcessingMessage += "\n " + str(numFilesLeft) + " remaining and needs your attention."
 
-            tk.messagebox.showinfo(title="Success", message=successMessage)
+            tk.messagebox.showinfo(title="Success", message=postProcessingMessage)
 
         except ValueError:
             tk.messagebox.showinfo(title="Warning", message="Sorry, please correct the inputs & try again.")

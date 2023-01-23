@@ -21,6 +21,7 @@ def count_files(search_path):
 def sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth):
     yearFolderDestination = toDirectory + "/" + str(year)
     numPhotosSorted = 0
+    numPreexistingFiles = 0
 
     print(fromDirectory)
 
@@ -42,15 +43,21 @@ def sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth):
             else:
                 # Move/Copy the found files into the 'to' directory
                 for file in found_files:
-                    os.rename(file, yearMonthDestinationFolder + "/" + os.path.basename(file))
-                    numPhotosSorted += 1
-                print(str(yearMonth) + " has been organised.")
+                    newFileName = yearMonthDestinationFolder + "/" + os.path.basename(file)
 
+                    if os.path.isfile(newFileName):
+                        print(str(file) + " already exists")
+                        numPreexistingFiles += 1
+                        os.remove(file)
+                    else:
+                        os.rename(file, newFileName)
+                        numPhotosSorted += 1
+                print(str(yearMonth) + " has been organised.")
 
         except FileNotFoundError:
             print(yearFolderDestination + " was not found")
         except FileExistsError:
             print("moving on")
 
-    return count_files(fromDirectory), numPhotosSorted
+    return count_files(fromDirectory), numPhotosSorted, numPreexistingFiles
 
