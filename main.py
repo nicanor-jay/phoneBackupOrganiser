@@ -57,7 +57,7 @@ class myGUI:
         self.toFolderEntry = tk.Entry(self.directoryFrameLabel, width=40, textvariable=self.toFolderPath)
         self.toFolderEntry.grid(row=3, column=1)
         self.toDirectoryButton = tk.Button(self.directoryFrameLabel, text="Browse Files", font=('Arial', 10),
-                                             command=self.getToDirectory)
+                                             command = self.getToDirectory)
         self.toDirectoryButton.grid(row=3, column=2)
 
         #Getting the year & month ranges
@@ -75,7 +75,8 @@ class myGUI:
         self.startMonthLabel = tk.Label(self.timeFrameLabel, text="Range of Months")
         self.startMonthLabel.grid(row=1, column=0)
         self.startMonthEntry = tk.StringVar(self.timeFrameLabel)
-        self.startMonthEntryDropDown = tk.OptionMenu(self.timeFrameLabel,self.startMonthEntry, *MONTHSTOINT.keys())
+        self.startMonthEntry.set(list(MONTHSTOINT.keys())[0])
+        self.startMonthEntryDropDown = tk.OptionMenu(self.timeFrameLabel, self.startMonthEntry, *MONTHSTOINT.keys())
         self.startMonthEntryDropDown.grid(row=1, column=1)
 
         self.between = tk.Label(self.timeFrameLabel, text=" to ")
@@ -84,7 +85,8 @@ class myGUI:
         # self.endMonthLabel = tk.Label(self.timeFrameLabel, text="Enter End Month")
         # self.endMonthLabel.grid(row=2, column=0)
         self.endMonthEntry = tk.StringVar(self.timeFrameLabel)
-        self.endMonthEntryDropDown = tk.OptionMenu(self.timeFrameLabel,self.endMonthEntry, *MONTHSTOINT.keys())
+        self.endMonthEntry.set(list(MONTHSTOINT.keys())[11])
+        self.endMonthEntryDropDown = tk.OptionMenu(self.timeFrameLabel, self.endMonthEntry, *MONTHSTOINT.keys())
         self.endMonthEntryDropDown.grid(row=1, column=3)
 
         # Button
