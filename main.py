@@ -100,8 +100,6 @@ class myGUI:
             widget.grid_configure(padx=10, pady=5)
 
         self.root.mainloop()
-
-
     def getFromDirectory(self):
         self.myFromDirectory = tk.filedialog.askdirectory()
         self.fromFolderPath.set(self.myFromDirectory)
