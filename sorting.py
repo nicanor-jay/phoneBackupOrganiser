@@ -27,6 +27,7 @@ def sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth):
 
     for i in range(startMonth, endMonth + 1):
         yearMonth = str(year) + "{:02d}".format(i)
+        yearMonthHyphened = str(year) + "-{:02d}".format(i)
         yearMonthDestinationFolder = yearFolderDestination + "-" + "{:02d}".format(i)
 
         try:
@@ -38,6 +39,7 @@ def sortFiles(fromDirectory, toDirectory, year, startMonth, endMonth):
 
             # Find associated photos/videos/files taken in during 'yearMonth'
             found_files = find_files(str(yearMonth), fromDirectory)
+            found_files = found_files + find_files(str(yearMonthHyphened), fromDirectory)
             if len(found_files) == 0:
                 print("No files found for " + str(yearMonth))
             else:
