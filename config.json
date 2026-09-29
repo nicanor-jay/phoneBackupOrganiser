@@ -1,0 +1,16 @@
+{
+    "destination": "D:\\Phone Media Backups",
+    "folder_layout": "{year}\\{year}-{month}",
+    "adb_path": "auto",
+    "poll_seconds": 5,
+    "notifications": true,
+    "sources": [
+        {"name": "Camera",                "path": "/sdcard/DCIM/Camera",                                                              "enabled": true},
+        {"name": "Screenshots",           "path": "/sdcard/Pictures/Screenshots",                                                     "enabled": false},
+        {"name": "Screen recordings",     "path": "/sdcard/Movies/Screen recordings",                                                 "enabled": false},
+        {"name": "WhatsApp Images",       "path": "/sdcard/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images",                "enabled": false},
+        {"name": "WhatsApp Video",        "path": "/sdcard/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Video",                 "enabled": false},
+        {"name": "WhatsApp Voice Notes",  "path": "/sdcard/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Voice Notes",           "enabled": false},
+        {"name": "Snapchat",              "path": "/sdcard/Pictures/Snapchat",                                                        "enabled": false}
+    ]
+}
