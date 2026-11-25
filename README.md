@@ -1,44 +1,63 @@
 # phoneBackupOrganiser
-Streamlining the local organisation of photos, videos, & files imported from your phone.
+Automatic, local backup of the photos & videos on your Android phone. Plug it into your PC and every new photo,
+video and (optionally) screenshot or WhatsApp file is copied off and filed into tidy year/month folders.
 
-This python script moves and organises the mess of files from any folder, into an organised directory sorted by years and months
+A local copy alongside Google Photos / iCloud, with no cloud and no manual dragging and dropping.
 
-![image](https://user-images.githubusercontent.com/95185431/213944376-4ebe2676-a757-4e55-944f-fd3b747063a0.png)
+![Phone Backup window](docs/phone-backup-window.png)
 
-## Automatic backup (plug in and forget)
+## Features
+- **Plug in and forget.** Runs quietly in the background from login and backs up whenever the phone is connected,
+  with a Windows notification when it starts and finishes.
+- **Organised by date.** Files go into `YYYY\YYYY-MM` folders (or flat `YYYY-MM`), dated from the filename
+  (`PXL_20260319_...`, `IMG-20250101-WA0000`, ...) and falling back to the file's timestamp.
+- **Only what's new.** A small database in the backup folder remembers what's been copied, so each plug-in only grabs
+  new files and anything you tidy away on the PC isn't copied back.
+- **Safe.** Copy-only: nothing on the phone is ever deleted. Files are size-checked, and an unplug mid-copy never
+  leaves a half-written file.
+- **You choose what to back up.** Camera, Screenshots, Screen recordings, WhatsApp images/video/voice notes, Snapchat.
+- **Point-and-click control panel.** See if your phone is connected, change settings, preview, and back up on demand
+  with a progress bar.
 
-`phone_backup.py` runs in the background and, whenever your phone is plugged in, copies any new photos & videos
-straight into `D:\Phone Media Backups\YYYY\YYYY-MM`. Files on the phone are never deleted, and a small database
-(`.phone_backup.db` in the backup folder) remembers what has already been copied so each plug-in only grabs what's new.
+## Requirements
+- Windows 10/11 and Python 3.10+ (no extra packages needed)
+- [Android platform-tools](https://developer.android.com/tools/releases/platform-tools) (`adb`)
+- An Android phone and a USB data cable
 
-### One-time phone setup
-1. **Settings → About phone** → tap **Build number** 7 times to unlock Developer options.
-2. **Settings → System → Developer options** → turn on **USB debugging**.
+## Setup
+**On your phone (one time):**
+1. **Settings → About phone** and tap **Build number** 7 times to unlock Developer options.
+2. **Settings → System → Developer options** and turn on **USB debugging**.
 3. Plug the phone in, unlock it, and tap **Allow** (tick *Always allow from this computer*).
 
-### Control panel
-Open **Phone Backup** from the Desktop or Start menu (create those shortcuts once with
-`powershell -ExecutionPolicy Bypass -File install_startup.ps1 -Shortcuts`). In the window you can:
-- see whether your phone is connected (and get setup help if it isn't),
-- choose the backup folder and folder layout,
-- tick which phone folders to include (Camera, Screenshots, WhatsApp, ...),
-- turn **automatic backup** on/off (runs silently in the background from login),
-- **Preview** what's new, or **Back up now** with a progress bar and Cancel button.
+**On your PC (one time):**
+```powershell
+powershell -ExecutionPolicy Bypass -File install_startup.ps1 -Shortcuts
+```
+This adds **Phone Backup** to your Desktop and Start menu. Open it, pick where to save backups and what to include,
+then tick **Back up automatically whenever my phone is plugged in**.
 
-Settings are saved to `config.json` automatically.
+## Using it
+Plug your phone in. That's it. You'll get a notification when the backup is done.
+
+Open the **Phone Backup** window any time to:
+- **Preview** what's new without copying anything,
+- **Back up now** manually,
+- see the **last backup** result, or click **View log** if something looks off.
+
+Settings are saved to `config.json`, which you can also edit by hand.
 
 ### Command line (optional)
 ```
 python phone_backup.py --dry-run   # show what would be copied
 python phone_backup.py --once      # back up now
+python phone_backup.py --watch     # run the background watcher
 ```
-Logs are in `logs/phone_backup.log`.
+To stop automatic backup completely: `powershell -ExecutionPolicy Bypass -File install_startup.ps1 -Uninstall`
 
-## Manual organiser (original GUI)
-
-How to:
-1. Locate the directory from which you wish to organise.
-2. Select the directory you would like the organised files to be moved to.
-3. Input the desired year & month ranges to organise.
-4. Press sort
-
+## Manual organiser (original tool)
+`main.py` is the original Tkinter tool for sorting a folder of already-copied files into `YYYY-MM` folders:
+1. Choose the folder to organise.
+2. Choose the folder the organised files should be moved to.
+3. Enter the year & month range.
+4. Press sort.
